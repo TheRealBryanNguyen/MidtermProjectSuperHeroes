@@ -7,7 +7,7 @@ yargs(process.argv.slice(2))
     // <> indicate that the command is manadatory
     // [] indicate that options are optional
     .usage('$0: Usage <command>')
-    .command('Search <keyword>','play card games',
+    .command('Search <keyword>','Search for a Superhero',
         // command
         // <> indicates the command argument required
         // description for the command

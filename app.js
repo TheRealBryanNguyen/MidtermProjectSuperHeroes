@@ -14,10 +14,9 @@ const _searchPrompt = async () => {
 };*/
 
 
-const _discardPrompt = async (shList) => {
+const _searchPrompt = async (shList) => {
     const displaySH = shList.map((shInfo) => {
-        return { title: `${shInfo.name} of ${shInfo.biography.publisher}`, value: shInfo };
-      // return { title: `${shInfo.name}`, value: shInfo.id };
+        return { title: `${shInfo.name} of ${shInfo.biography['first-appearance']}`, value: shInfo.id };
     });
 
     return await prompts([
@@ -38,23 +37,55 @@ const _discardPrompt = async (shList) => {
         }
     ]);
 };
-/*
-const _findAndRemove = (originalHand, throwawayCards) => {
-    return originalHand.filter((card) => {
-        // if the card.code is NOT included in the throwaway array (array of strings) then keep it
-        return !throwawayCards.includes(card.code);
-    });
+const printCharacter = async (shInfo) => {
+
+    try {
+        console.log('\nCharacter Info');
+        console.log('Super Hero Name:  '+shInfo['name']);
+        console.log('First Appearance: '+shInfo.biography['first-appearance']);
+        console.log('Publisher       : '+shInfo.biography['publisher']);
+
+        console.log('\nPersonal Info');
+        console.log('Full Name:        '+shInfo.biography['full-name']);
+        console.log('Alter-egos:       '+shInfo.biography['alter-egos']);
+        console.log('Aliases:          '+shInfo.biography['aliases']);
+        console.log('Place of Birth:   '+shInfo.biography['place-of-birth']);
+        console.log('Occupation:       '+shInfo.work['occupation']);
+        console.log('Family:           '+shInfo.connections['relatives']); 
+        console.log('Affiliations:     '+shInfo.connections['group-affiliation']);
+
+        console.log('\nAppearance');
+        console.log('Gender:           '+shInfo.appearance['gender']);
+        console.log('Race:             '+shInfo.appearance['race']);
+        console.log('Height:           '+shInfo.appearance['height'][0]);
+        console.log('Weight:           '+shInfo.appearance['weight'][0]);
+        console.log('Eye Color:        '+shInfo.appearance['eye-color']);
+        console.log('Hair Color:       '+shInfo.appearance['hair-color']);
+
+        console.log('\nPowerstats');
+        console.log('Intelligence:     '+shInfo.powerstats['intelligence']);
+        console.log('Strength:         '+shInfo.powerstats['strength']);
+        console.log('Speed:            '+shInfo.powerstats['speed']);
+        console.log('Durability:       '+shInfo.powerstats['durability']);
+        console.log('Power:            '+shInfo.powerstats['power']);
+        console.log('Combat:           '+shInfo.powerstats['combat']);
+
+    } catch (error) {
+        console.log(error);
+    }
 };
-//*/
+
 // application logic
-// get a deck, draw original hand from deck, prompt user to discard, replace discarded cards by drawing again
 const searchSuperHero = async (args) => {
     // hard code the deck count due to rules of poker
     const shName = args.keyword;
-    console.log(shName);
-    const shInfo = await api.searchName(shName);
-    const shResult = await _discardPrompt(shInfo.results);
-    console.log(shResult);
+
+    const shSearch = await api.searchName(shName);
+    const shID = await _searchPrompt(shSearch.results);
+
+    const shCharacter = await api.getCharacter(shID.Superheros);
+    console.log(shID.Superheros);
+    printCharacter(shCharacter);
 
 };
 
