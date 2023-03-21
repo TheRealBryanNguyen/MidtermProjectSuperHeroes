@@ -1,12 +1,12 @@
 {
-    "name": "cards-app-cli",
+    "name": "SuperHeroSearch",
     "version": "1.0.0",
-    "description": "a cli to interact with the deck of cards api to play card games",
+    "description": "a cli to interact with an api of Superhero Information",
     "main": "cli.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
-    "author": "Cydney Auman",
+    "author": "JBB",
     "license": "ISC",
     "dependencies": {
         "prompts": "^2.4.2",
