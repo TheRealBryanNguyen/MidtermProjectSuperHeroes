@@ -1,6 +1,7 @@
 const prompts = require('prompts');
 
 const api = require('./api.js');
+const history = require('./history.js');
 /*
 const _searchPrompt = async () => {
 
@@ -77,14 +78,15 @@ const printCharacter = async (shInfo) => {
 
 // application logic
 const searchSuperHero = async (args) => {
-    // hard code the deck count due to rules of poker
     const shName = args.keyword;
 
     const shSearch = await api.searchName(shName);
+   // console.log(shSearch.results.length); //number of results
+    const shUpdate = await history.updateHistory(shName,shSearch.results.length);
     const shID = await _searchPrompt(shSearch.results);
 
     const shCharacter = await api.getCharacter(shID.Superheros);
-    console.log(shID.Superheros);
+    //console.log(shID.Superheros);
     printCharacter(shCharacter);
 
 };

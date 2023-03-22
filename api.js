@@ -16,7 +16,6 @@ const searchName = async (shName) => {
 const getCharacter = async (shID) => {
     try {
         const drawURL = `${base}/${shID}`;
-        console.log(drawURL);
         const res = await superagent.get(drawURL);
 
         return res.body;
